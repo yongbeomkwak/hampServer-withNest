@@ -8,7 +8,7 @@ import { UserModule } from './user/user.module';
 @Module({
   imports: [
     UserModule,
-    //  TypeOrmModule.forRoot(typeORMConfig), // TypeORM 설정 파일 연결
+    TypeOrmModule.forRoot(typeORMConfig), // TypeORM 설정 파일 연결
   ],
   controllers: [AppController],
   providers: [AppService],
