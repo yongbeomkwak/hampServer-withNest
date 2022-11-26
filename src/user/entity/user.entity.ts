@@ -1,27 +1,17 @@
 import {
-  Entity,
+  BaseEntity,
   Column,
+  Entity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  DeleteDateColumn,
+  Unique,
 } from 'typeorm';
 
+@Entity({ name: 'user' })
+@Unique(['user_id'])
 export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: Number;
-
-  @Column()
+  id: number;
   name: string;
-
-  @Column()
-  password: string;
-
-  @Column()
-  age: number;
-
-  @CreateDateColumn()
-  createAt: Date;
-
-  @UpdateDateColumn()
-  updateAt: Date;
 }
