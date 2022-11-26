@@ -13,8 +13,11 @@ export class User {
   @Column()
   name: string;
 
-  @Column({ default: 'M' })
-  gender: string;
+  @Column()
+  password: string;
+
+  @Column()
+  age: number;
 
   @CreateDateColumn()
   createAt: Date;
