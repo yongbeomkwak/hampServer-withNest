@@ -2,18 +2,13 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { dirname } from 'path';
+import { typeORMConfig } from './configs/typeorm.config';
 import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     UserModule,
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'userDB',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(typeORMConfig), // TypeORM 설정 파일 연결
   ],
   controllers: [AppController],
   providers: [AppService],
