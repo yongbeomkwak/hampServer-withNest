@@ -8,9 +8,12 @@ import {
   Post,
   Put,
   Query,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from '../user-service/user.service';
 import { User } from '../entity/user.entity';
+import { CreateUserDto, UpdateUserDto } from '../dto/user.dto';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -28,8 +31,9 @@ export class UserController {
    * @param name 유저 이름
    */
   @Post('/create_user')
-  onCreateUser(@Body('id') id: number, @Body('name') name: string): User[] {
-    return this.userService.onCreateUser(id, name);
+  @UsePipes(ValidationPipe) //파이프라인 사용
+  onCreateUser(@Body() createUserDto: CreateUserDto): User[] {
+    return this.userService.onCreateUser(createUserDto);
   }
 
   /**

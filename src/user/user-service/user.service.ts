@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { CreateUserDto } from '../dto/user.dto';
 import { User } from '../entity/user.entity';
+
 const users: User[] = [
   { id: 1, name: '유저1' },
   { id: 2, name: '유저2' },
@@ -16,8 +18,8 @@ export class UserService {
    * @param name 유저 이름
    * @returns {User[]} users
    */
-  onCreateUser(id: number, name: string): User[] {
-    return users.concat({ id, name });
+  onCreateUser(createUserDto: CreateUserDto): User[] {
+    return users.concat({ id: createUserDto.id, name: createUserDto.name });
   }
 
   /**

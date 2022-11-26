@@ -13,7 +13,7 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       /**
-       * whitelist: DTO에 없은 속성은 무조건 거른다.
+       * whitelist: DTO에 없은 속성은 무조건 거른다. (필터링)
        * forbidNonWhitelisted: 전달하는 요청 값 중에 정의 되지 않은 값이 있으면 Error를 발생합니다.
        * transform: 네트워크를 통해 들어오는 데이터는 일반 JavaScript 객체입니다.
        *            객체를 자동으로 DTO로 변환을 원하면 transform 값을 true로 설정한다.
