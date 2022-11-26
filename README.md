@@ -147,6 +147,11 @@ Nest는 즉시 사용할 수 있는 8개의 파이프와 함께 제공됩니다.
 - Global Pipe는 애플리케이션 전체에 적용되는 Pipe입니다. main.ts 파일에 설정합니다.
 
 - [글로벌 파이프라인 옵션](https://docs.nestjs.com/techniques/validation)
-  [전체적인 참조](https://any-ting.tistory.com/113)
+
+## 2022.11.27
+
+- Repositoy 생성 및 userModule에 드ퟝ록
+
+[전체적인 참조](https://any-ting.tistory.com/113)
 
 [프로젝트 구조 및 TS 문법](https://github.com/yongbeomkwak/LearningTS)

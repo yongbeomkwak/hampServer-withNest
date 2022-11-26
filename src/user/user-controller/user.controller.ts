@@ -10,10 +10,12 @@ import {
   Query,
   UsePipes,
   ValidationPipe,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { UserService } from '../user-service/user.service';
 import { User } from '../entity/user.entity';
 import { CreateUserDto, UpdateUserDto } from '../dto/user.dto';
+
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -24,81 +26,87 @@ export class UserController {
   }
 
   /**
-   * @author Ryan
+   * @author Hamp
    * @description @Body 방식 - @Body 어노테이션 여러개를 통해 요청 객체를 접근할 수 있습니다.
+   *
+   * CreateUserDto를 사용해서 @Body 전달 방식을 변경합니다.
    *
    * @param id 유저 고유 아이디
    * @param name 유저 이름
    */
   @Post('/create_user')
-  @UsePipes(ValidationPipe) //파이프라인 사용
-  onCreateUser(@Body() createUserDto: CreateUserDto): User[] {
+  @UsePipes(ValidationPipe)
+  onCreateUser(@Body() createUserDto: CreateUserDto): Promise<boolean> {
     return this.userService.onCreateUser(createUserDto);
   }
 
   /**
-   * @author Ryan
+   * @author Hamp
    * @description 전체 유저 조회
    */
   @Get('/user_all')
-  getUserAll(): User[] {
+  getUserAll(): Promise<User[]> {
     return this.userService.getUserAll();
   }
 
   /**
-   * @author Ryan
+   * @author Hamp
    * @description @Query 방식 - 단일 유저 조회
    *
    * @param id 유저 고유 아이디
    */
   @Get('/user')
-  findByUserOne1(@Query('id') id: number): User {
+  findByUserOne1(@Query('id', ParseUUIDPipe) id: string): Promise<User> {
     return this.userService.findByUserOne(id);
   }
 
   /**
-   * @author Ryan
+   * @author Hamp
    * @description @Param 방식 - 단일 유저 조회
    *
    * @param id 유저 고유 아이디
    */
   @Get('/user/:id')
-  findByUserOne2(@Param('id') id: number): User {
+  findByUserOne2(@Param('id', ParseUUIDPipe) id: string): Promise<User> {
     return this.userService.findByUserOne(id);
   }
 
   /**
-   * @author Ryan
+   * @author Hamp
    * @description @Param & @Body 혼합 방식 - 단일 유저 수정
    *
    * @param id 유저 고유 아이디
    * @param name 유저 이름
    */
   @Patch('/user/:id')
-  setUser(@Param('id') id: number, @Body('name') name: string): User {
-    return this.userService.setUser(id, name);
+  @UsePipes(ValidationPipe)
+  setUser(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<boolean> {
+    return this.userService.setUser(id, updateUserDto);
   }
 
   /**
-   * @author Ryan
+   * @author Hamp
    * @description @Body 방식 - 전체 유저 수정
    *
-   * @param id 유저 고유 아이디
-   * @param name 유저 이름
+   * @param updateUserDto 유저 정보
    */
   @Put('/user/update')
-  setAllUser(@Body('id') id: number, @Body('name') name: string): User[] {
-    return this.userService.setAllUser(id, name);
+  @UsePipes(ValidationPipe)
+  setAllUser(@Body() updateUserDto: UpdateUserDto[]): Promise<boolean> {
+    return this.userService.setAllUser(updateUserDto);
   }
 
   /**
-   * @author Ryan
+   * @author Hamp
    * @description @Query 방식 - 단일 유저 삭제
    *
    * @param id 유저 고유 아이디
    */
   @Delete('/user/delete')
-  deleteUser(@Query('id') id: number): User[] {
+  deleteUser(@Query('id', ParseUUIDPipe) id: string): Promise<boolean> {
     return this.userService.deleteUser(id);
   }
 }

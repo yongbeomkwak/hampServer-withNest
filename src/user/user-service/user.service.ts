@@ -1,88 +1,82 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from '../dto/user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CreateUserDto, UpdateUserDto } from '../dto/user.dto';
 import { User } from '../entity/user.entity';
-
-const users: User[] = [
-  { id: 1, name: '유저1' },
-  { id: 2, name: '유저2' },
-  { id: 3, name: '유저3' },
-];
+import { UserRepository } from 'src/repository/user.repository';
 
 @Injectable()
 export class UserService {
+  constructor(
+    @InjectRepository(UserRepository) private userRepository: UserRepository,
+  ) {}
+
   /**
-   * @author Ryan
+   * @author Hamp
    * @description 유저 생성
    *
-   * @param id 유저 고유 아이디
-   * @param name 유저 이름
+   * @param createUserDto 유저 데이터
+   *
    * @returns {User[]} users
    */
-  onCreateUser(createUserDto: CreateUserDto): User[] {
-    return users.concat({ id: createUserDto.id, name: createUserDto.name });
+  onCreateUser(createUserDto: CreateUserDto): Promise<boolean> {
+    return this.userRepository.onCreate(createUserDto);
   }
 
   /**
-   * @author Ryan
+   * @author Hamp
    * @description 모든 유저 조회
    *
    * @returns {User[]} users
    */
-  getUserAll(): User[] {
-    return users;
+  getUserAll(): Promise<User[]> {
+    return this.userRepository.findAll();
   }
 
   /**
-   * @author Ryan
+   * @author Hamp
    * @description 단일 유저 조회
    *
    * @param id 유저 고유 아이디
    * @returns {User} users
    */
-  findByUserOne(id: number): User {
-    return users.find((data) => data.id == id);
+  findByUserOne(id: string): Promise<User> {
+    return this.userRepository.findById(id);
   }
 
   /**
-   * @author Ryan
+   * @author Hamp
    * @description 단일 유저 수정
    *
-   * @returns {User} users
+   * @param id 유저 고유 아이디
+   * @param updateUserDto 유저 정보
+   *
+   * @returns {Promise<boolean>} true
    */
-  setUser(id: number, name: string): User {
-    return users.find((data) => {
-      if (data.id == id) return (data.name = name);
-    });
+  setUser(id: string, updateUserDto: UpdateUserDto): Promise<boolean> {
+    return this.userRepository.onChnageUser(id, updateUserDto);
   }
 
   /**
-   * @author Ryan
+   * @author Hamp
    * @description 전체 유저 수정
    *
-   * @returns {User[]} users
+   * @param updateUserDto 유저 정보
+   *
+   * @returns {Promise<boolean>} true
    */
-  setAllUser(id, name): User[] {
-    return users.map((data) => {
-      if (data.id == id) {
-        data.name = name;
-      }
-
-      return {
-        id: data.id,
-        name: data.name,
-      };
-    });
+  setAllUser(updateUserDto: UpdateUserDto[]): Promise<boolean> {
+    return this.userRepository.onChnageUsers(updateUserDto);
   }
 
   /**
-   * @author Ryan
+   * @author
    * @description 유저 삭제
    *
    * @param id
-   * @returns {User[]} users
+   * @returns {Promise<boolean>} true
    */
-  deleteUser(id: number): User[] {
-    return users.filter((data) => data.id != id);
+  deleteUser(id: string): Promise<boolean> {
+    return this.userRepository.onDelete(id);
   }
 
   getHelloWorld(): string {
