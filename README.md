@@ -1,5 +1,76 @@
 # Hamp 개인 서버 프로젝트
 
+## 0. Before Installation
+
+- 노드 설치
+- 타입스크립트 설치
+
+## 1.Installation
+
+### nest cli 설치하자
+
+```bash
+npm install -g @nestjs/cli
+```
+
+### 프로젝트 생성
+
+```bash
+nest n
+```
+
+### 클래스 유효성 확인을 위한 패키지
+
+```bash
+npm i class-validator class-transformer
+```
+
+- 예시
+
+  ```ts
+  import { isString } from "class-validator";
+  @IsString();
+  ```
+
+### DTO 타입을 변환시키고 사용할 수 있게 해주는 패키지
+
+```bash
+npm i @nestjs/mapped-types
+```
+
+### 스웨거 설치
+
+```bash
+npm install --save @nestjs/swagger swagger-ui-express
+```
+
+## 2.구조
+
+### 0. Module
+
+- 가장 상위에 있음
+- 프로젝트에서 사용하는 모든것을 미리 정의
+- import 역시 이 곳에서
+- 생성 명령어
+  > nest g mo
+
+### 1. Controller
+
+- express의 router 같은 역할
+
+  - url을 당담
+  - 해당 url에 관한 함수를 실행 담당
+
+- 생성 명령어
+  > nest g co
+
+### 2. Service
+
+- 맵핑된 컨틀롤러의 실제 동작 내용
+
+- 생성 명령어
+  > nest g s
+
 ## 2022.11.10
 
 - [스웨거 적용 및 테스트](https://jhyeok.com/nestjs-swagger/)
@@ -44,4 +115,38 @@ ifconfig | grep "inet " | grep -v 127.0.0.1
 
     ```
 
-> [전체적인 참조](https://any-ting.tistory.com/113)
+---
+
+### 파이프라인
+
+#### Pipes 사용법
+
+- 사용방법은 3가지 방법이 있습니다.
+
+  1. Global-Level
+
+  2. Handler-Level
+
+  3. Parameter-Level
+
+내장 파이프
+
+Nest는 즉시 사용할 수 있는 8개의 파이프와 함께 제공됩니다.
+
+1.  ValidationPipe
+2.  ParseIntPipe
+3.  ParseFloatPipe
+4.  ParseBoolPipe
+5.  ParseArrayPipe
+6.  ParseUUIDPipe
+7.  ParseEnumPipe
+8.  DefaultValuePipe
+
+- @nestjs/common패키지에서 내 보냅니다.
+
+- Global Pipe는 애플리케이션 전체에 적용되는 Pipe입니다. main.ts 파일에 설정합니다.
+
+- [글로벌 파이프라인 옵션](https://docs.nestjs.com/techniques/validation)
+  [전체적인 참조](https://any-ting.tistory.com/113)
+
+[프로젝트 구조 및 TS 문법](https://github.com/yongbeomkwak/LearningTS)
