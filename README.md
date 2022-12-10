@@ -5,6 +5,11 @@
 - 노드 설치
 - 타입스크립트 설치
 
+- Mysql
+  1. work Bench
+  - sudo apt-get install mysql-workbench
+  - mysql-workbench
+
 ## 1.Installation
 
 ### nest cli 설치하자
