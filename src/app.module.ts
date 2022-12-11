@@ -7,10 +7,10 @@ import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
-    UserModule,
     TypeOrmModule.forRoot(typeORMConfig), // TypeORM 설정 파일 연결
+    UserModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
