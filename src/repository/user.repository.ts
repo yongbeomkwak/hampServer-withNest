@@ -6,7 +6,11 @@ import { User } from 'src/user/entity/user.entity';
 @Injectable()
 export class UserRepository extends Repository<User> {
   constructor(private dataSource: DataSource) {
-    super(User, dataSource.createEntityManager());
+    super(
+      User,
+      dataSource.createEntityManager(),
+      dataSource.createQueryRunner(),
+    );
   }
 
   async getTest(): Promise<string> {
