@@ -1,19 +1,15 @@
-import { NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from 'src/user/dto/user.dto';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { User } from 'src/user/entity/user.entity';
 
-export interface UserRepository extends Repository<User> {
-  // Orm 0.3x 이후로 이런식으로 바뀜
-  this: Repository<User>;
+@Injectable()
+export class UserRepository extends Repository<User> {
+  constructor(private dataSource: DataSource) {
+    super(User, dataSource.createEntityManager());
+  }
 
-  getTest(): Promise<string>;
-}
-
-type CustomRepository = Pick<UserRepository, 'getTest'>;
-
-export const CustomRepositoryMethods: CustomRepository = {
   async getTest(): Promise<string> {
-    return 'Hello';
-  },
-};
+    return await 'Hello';
+  }
+}
