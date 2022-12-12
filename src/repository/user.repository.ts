@@ -20,7 +20,7 @@ export class UserRepository extends Repository<User> {
     const user = await this.save({
       user_id,
       password,
-      salt: '임시',
+      salt: 'rekraker',
       name,
       age,
     });

@@ -74,13 +74,8 @@ export class UserController {
    * @param name 유저 이름
    * 
    * @url : http://localhost:3000/user/user/a544136c-5774-4101-b6a3-0bf983e8d3a8(id값)
-   * @Body : {
-	"id" : "a544136c-5774-4101-b6a3-0bf983e8d3a8",
-	"user_id": "1234",
-	"password" : "!Yy1234567",
-	"name": "tmp2",
-	"age": 20
-}
+   * @Body : {"id" : "a544136c-5774-4101-b6a3-0bf983e8d3a8","user_id": "1234",
+	"password" : "!Yy1234567","name": "tmp2","age": 20}
    * 
    */
   @Patch('/user/:id')
@@ -98,6 +93,9 @@ export class UserController {
    * @description @Body 방식 - 전체 유저 수정
    *
    * @param updateUserDto 유저 정보
+   * @url http://localhost:3000/user/user/update
+   * @Body : [UpdateUserDto]
+   *
    */
   @Put('/user/update')
   @UsePipes(ValidationPipe)
@@ -113,6 +111,7 @@ export class UserController {
    */
   @Delete('/user/delete')
   deleteUser(@Query('id', ParseUUIDPipe) id: string): Promise<boolean> {
+    console.log(id);
     return this.userService.deleteUser(id);
   }
 }
