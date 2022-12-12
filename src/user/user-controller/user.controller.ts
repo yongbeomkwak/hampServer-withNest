@@ -106,8 +106,8 @@ export class UserController {
   /**
    * @author Hamp
    * @description @Query 방식 - 단일 유저 삭제
-   *
    * @param id 유저 고유 아이디
+   * @url http://localhost:3000/user/user/delete?id=f8fdc484-13ea-4b6f-89c2-053805ee043b
    */
   @Delete('/user/delete')
   deleteUser(@Query('id', ParseUUIDPipe) id: string): Promise<boolean> {
