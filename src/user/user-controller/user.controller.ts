@@ -70,9 +70,18 @@ export class UserController {
   /**
    * @author Hamp
    * @description @Param & @Body 혼합 방식 - 단일 유저 수정
-   *
    * @param id 유저 고유 아이디
    * @param name 유저 이름
+   * 
+   * @url : http://localhost:3000/user/user/a544136c-5774-4101-b6a3-0bf983e8d3a8(id값)
+   * @Body : {
+	"id" : "a544136c-5774-4101-b6a3-0bf983e8d3a8",
+	"user_id": "1234",
+	"password" : "!Yy1234567",
+	"name": "tmp2",
+	"age": 20
+}
+   * 
    */
   @Patch('/user/:id')
   @UsePipes(ValidationPipe)
@@ -80,6 +89,7 @@ export class UserController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<boolean> {
+    console.log(`ID : ${id}`);
     return this.userService.setUser(id, updateUserDto);
   }
 
