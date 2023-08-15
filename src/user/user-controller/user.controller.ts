@@ -32,6 +32,7 @@ export class UserController {
   @Post('/create_user')
   @UsePipes(ValidationPipe)
   onCreateUser(@Body() createUserDto: CreateUserDto): Promise<boolean> {
+
     return this.userService.onCreateUser(createUserDto);
   }
 
@@ -84,7 +85,7 @@ export class UserController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<boolean> {
-    console.log(`ID : ${id}`);
+
     return this.userService.setUser(id, updateUserDto);
   }
 

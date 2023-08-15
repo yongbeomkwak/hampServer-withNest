@@ -6,9 +6,8 @@
 - 타입스크립트 설치
 
 - Mysql
-  1. work Bench
-  - sudo apt-get install mysql-workbench
-  - mysql-workbench
+  mysql.server start : 서버 시작
+  mysql.server stop : 서버 종료
 
 ## 1.Installation
 
