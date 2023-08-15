@@ -49,6 +49,11 @@ npm i @nestjs/mapped-types
 npm install --save @nestjs/swagger swagger-ui-express
 ```
 
+### mysql 설치
+```bash
+yarn add @nestjs/typeorm typeorm mysql2
+```
+
 ## 2.구조
 
 ### 0. Module
