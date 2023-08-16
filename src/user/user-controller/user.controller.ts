@@ -46,6 +46,11 @@ export class UserController {
     return this.userService.getUserAll();
   }
 
+  @Get('env')
+  getEnv(): string {
+    return process.env.DB_USER;
+  }
+
   /**
    * @author Hamp
    * @description @Query 방식 - 단일 유저 조회
