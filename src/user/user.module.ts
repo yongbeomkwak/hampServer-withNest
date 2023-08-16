@@ -6,7 +6,6 @@ import {
   getRepositoryToken,
   getDataSourceToken,
 } from '@nestjs/typeorm';
-import { typeORMConfig } from 'src/configs/typeorm.config';
 import { UserRepository } from 'src/repository/user.repository';
 import { User } from './entity/user.entity';
 import { DataSource } from 'typeorm';

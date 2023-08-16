@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeORMConfig } from './configs/typeorm.config';
+import { MysqlConfigProvider } from './configs/typeorm.config';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 
@@ -8,9 +8,11 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `${process.env.NODE_ENV}.env`,
+      envFilePath: `.${process.env.NODE_ENV}.env`,
     }),
-    TypeOrmModule.forRoot(typeORMConfig), // TypeORM 설정 파일 연결
+    TypeOrmModule.forRootAsync({
+      useClass: MysqlConfigProvider
+    }), // TypeORM 설정 파일 연결
     UserModule,
   ],
   controllers: [],
