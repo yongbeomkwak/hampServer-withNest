@@ -16,8 +16,8 @@ export class UserService {
    *
    * @returns {User[]} users
    */
-  onCreateUser(createUserDto: CreateUserDto): Promise<boolean> {
-    return this.userRepository.onCreate(createUserDto);
+  async onCreateUser(createUserDto: CreateUserDto): Promise<boolean> {
+    return await this.userRepository.onCreate(createUserDto);
   }
 
   /**
@@ -26,8 +26,8 @@ export class UserService {
    *
    * @returns {User[]} users
    */
-  getUserAll(): Promise<User[]> {
-    return this.userRepository.findAll();
+  async getUserAll(): Promise<User[]> {
+    return await this.userRepository.findAll();
   }
 
   /**
@@ -37,8 +37,8 @@ export class UserService {
    * @param id 유저 고유 아이디
    * @returns {User} users
    */
-  findByUserOne(id: string): Promise<User> {
-    return this.userRepository.findById(id);
+  async findByUserOne(id: string): Promise<User> {
+    return await this.userRepository.findById(id);
   }
 
   /**
@@ -50,8 +50,8 @@ export class UserService {
    *
    * @returns {Promise<boolean>} true
    */
-  setUser(id: string, updateUserDto: UpdateUserDto): Promise<boolean> {
-    return this.userRepository.onChnageUser(id, updateUserDto);
+  async setUser(id: string, updateUserDto: UpdateUserDto): Promise<boolean> {
+    return await this.userRepository.onChnageUser(id, updateUserDto);
   }
 
   /**
@@ -62,8 +62,8 @@ export class UserService {
    *
    * @returns {Promise<boolean>} true
    */
-  setAllUser(updateUserDto: UpdateUserDto[]): Promise<boolean> {
-    return this.userRepository.onChnageUsers(updateUserDto);
+  async setAllUser(updateUserDto: UpdateUserDto[]): Promise<boolean> {
+    return await this.userRepository.onChnageUsers(updateUserDto);
   }
 
   /**
@@ -73,7 +73,7 @@ export class UserService {
    * @param id
    * @returns {Promise<boolean>} true
    */
-  deleteUser(id: string): Promise<boolean> {
-    return this.userRepository.onDelete(id);
+  async deleteUser(id: string): Promise<boolean> {
+    return await this.userRepository.onDelete(id);
   }
 }

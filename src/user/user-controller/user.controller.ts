@@ -31,9 +31,9 @@ export class UserController {
    */
   @Post('/create_user')
   @UsePipes(ValidationPipe)
-  onCreateUser(@Body() createUserDto: CreateUserDto): Promise<boolean> {
+  async onCreateUser(@Body() createUserDto: CreateUserDto): Promise<boolean> {
 
-    return this.userService.onCreateUser(createUserDto);
+    return await this.userService.onCreateUser(createUserDto);
   }
 
   /**
@@ -42,8 +42,8 @@ export class UserController {
    * @url http://localhost:3000/user/user_all
    */
   @Get('/user_all')
-  getUserAll(): Promise<User[]> {
-    return this.userService.getUserAll();
+  async getUserAll(): Promise<User[]> {
+    return await this.userService.getUserAll();
   }
 
   @Get('env')
@@ -58,8 +58,8 @@ export class UserController {
    * @url  http://localhost:3000/user/user?id= id값
    */
   @Get('/user')
-  findByUserOne1(@Query('id', ParseUUIDPipe) id: string): Promise<User> {
-    return this.userService.findByUserOne(id);
+  async findByUserOne1(@Query('id', ParseUUIDPipe) id: string): Promise<User> {
+    return await this.userService.findByUserOne(id);
   }
 
   /**
@@ -69,8 +69,8 @@ export class UserController {
    * @url http://localhost:3000/user/user/id값
    */
   @Get('/user/:id')
-  findByUserOne2(@Param('id', ParseUUIDPipe) id: string): Promise<User> {
-    return this.userService.findByUserOne(id);
+  async findByUserOne2(@Param('id', ParseUUIDPipe) id: string): Promise<User> {
+    return await this.userService.findByUserOne(id);
   }
 
   /**
@@ -86,12 +86,12 @@ export class UserController {
    */
   @Patch('/user/:id')
   @UsePipes(ValidationPipe)
-  setUser(
+  async setUser(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<boolean> {
 
-    return this.userService.setUser(id, updateUserDto);
+    return await this.userService.setUser(id, updateUserDto);
   }
 
   /**
@@ -105,8 +105,8 @@ export class UserController {
    */
   @Put('/user/update')
   @UsePipes(ValidationPipe)
-  setAllUser(@Body() updateUserDto: UpdateUserDto[]): Promise<boolean> {
-    return this.userService.setAllUser(updateUserDto);
+  async setAllUser(@Body() updateUserDto: UpdateUserDto[]): Promise<boolean> {
+    return await this.userService.setAllUser(updateUserDto);
   }
 
   /**
@@ -116,8 +116,8 @@ export class UserController {
    * @url http://localhost:3000/user/user/delete?id=f8fdc484-13ea-4b6f-89c2-053805ee043b
    */
   @Delete('/user/delete')
-  deleteUser(@Query('id', ParseUUIDPipe) id: string): Promise<boolean> {
+  async deleteUser(@Query('id', ParseUUIDPipe) id: string): Promise<boolean> {
     console.log(id);
-    return this.userService.deleteUser(id);
+    return await this.userService.deleteUser(id);
   }
 }

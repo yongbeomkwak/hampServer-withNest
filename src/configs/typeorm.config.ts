@@ -4,7 +4,7 @@ export const typeORMConfig: TypeOrmModuleOptions = {
   type: 'mysql', //Database 설정
   host: '127.0.0.1',
   port: 3306,
-  username: process.env.DB_USER,
+  username: process.env.DB_USER || "root",
   password: '12345678',
   database: 'User',
   entities: ['dist/**/*.entity.{ts,js}'], // Entity 연결
