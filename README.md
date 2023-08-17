@@ -53,6 +53,23 @@ npm install --save @nestjs/swagger swagger-ui-express
 yarn add @nestjs/typeorm typeorm mysql2
 ```
 
+### pm2 설치
+```bash
+sudo npm install pm2 -g
+
+pm2 list : 실행중인 프로세스 목록 확인
+pm2 status : 실행중인 프로세스 상태 확인
+pm2 kill : 모든 프로세스 없애기
+pm2 start [applicationName]: 프로세스 실행
+pm2 stop [applicationName] : 실행중인 프로세스 중지
+pm2 delete [applicationName] : 프로젝트 삭제
+pm2 restart [applicationName] : 실행중인 프로세스 재시작 ( 프로세스 kill 후 재실행 )
+pm2 reload [applicationName]: 실행중인 프로세스 리로드 ( 프로세스 kill 하지 않고 적용 )
+pm2 log : 작업중인 로그 실시간 확인
+pm2 monit: 메모리 / CPU 사용량 확인
+```
+
+
 ## 2.구조
 
 ### 0. Module
