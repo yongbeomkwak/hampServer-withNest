@@ -9,7 +9,7 @@ import {
   Unique,
 } from 'typeorm';
 
-@Entity({ name: 'user' })
+@Entity({ name: 'user' }) // typeORM이 table 이름으로 사용 , configure안에 synchronize:true일 때 
 @Unique(['user_id'])
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
