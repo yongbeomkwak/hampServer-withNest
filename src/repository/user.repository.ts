@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from 'src/user/dto/user.dto';
-import { DataSource, Repository } from 'typeorm';
+import { DataSource, Repository} from 'typeorm';
 import { User } from 'src/user/entity/user.entity';
 
 @Injectable()
@@ -31,6 +31,12 @@ export class UserRepository extends Repository<User> {
   //모든 유저 조회
   async findAll(): Promise<User[]> {
     return await this.find();
+  }
+
+  async findAllByName(name: string): Promise<User[]>{
+    return await this.createQueryBuilder(`user`)
+      .where(`user.name like :name`, { name: `%${name}%` })
+      .getMany();
   }
 
   //단일 유저 조회

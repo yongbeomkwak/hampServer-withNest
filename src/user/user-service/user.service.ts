@@ -30,6 +30,17 @@ export class UserService {
     return await this.userRepository.findAll();
   }
 
+   /**
+   * @author Hamp
+   * @description 이름으로 유저 조회
+   *
+   * @returns {User[]} users
+   */
+   async getUsersByName(name: string): Promise<User[]> {
+    return await this.userRepository.findAllByName(name);
+  }
+
+
   /**
    * @author Hamp
    * @description 단일 유저 조회

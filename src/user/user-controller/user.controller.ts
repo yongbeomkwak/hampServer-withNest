@@ -16,7 +16,7 @@ import { UserService } from '../user-service/user.service';
 import { User } from '../entity/user.entity';
 import { CreateUserDto, UpdateUserDto } from '../dto/user.dto';
 
-@Controller('user')
+@Controller('/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -32,7 +32,6 @@ export class UserController {
   @Post('/create_user')
   @UsePipes(ValidationPipe)
   async onCreateUser(@Body() createUserDto: CreateUserDto): Promise<boolean> {
-
     return await this.userService.onCreateUser(createUserDto);
   }
 
@@ -52,7 +51,7 @@ export class UserController {
    * @param id 유저 고유 아이디
    * @url  http://localhost:3000/user/user?id= id값
    */
-  @Get('/user')
+  @Get()
   async findByUserOne1(@Query('id', ParseUUIDPipe) id: string): Promise<User> {
     return await this.userService.findByUserOne(id);
   }
@@ -61,11 +60,11 @@ export class UserController {
    * @author Hamp
    * @description @Param 방식 - 단일 유저 조회
    * @param id 유저 고유 아이디
-   * @url http://localhost:3000/user/user/id값
+   * @url http://localhost:3000/user/user/name값
    */
-  @Get('/user/:id')
-  async findByUserOne2(@Param('id', ParseUUIDPipe) id: string): Promise<User> {
-    return await this.userService.findByUserOne(id);
+  @Get('/:name')
+  async findByUserOne2(@Param('name') name: string): Promise<User[]> {
+    return await this.userService.getUsersByName(name);
   }
 
   /**
@@ -79,13 +78,12 @@ export class UserController {
 	"password" : "!Yy1234567","name": "tmp2","age": 20}
    * 
    */
-  @Patch('/user/:id')
+  @Patch('/:id')
   @UsePipes(ValidationPipe)
   async setUser(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<boolean> {
-
     return await this.userService.setUser(id, updateUserDto);
   }
 
@@ -98,7 +96,7 @@ export class UserController {
    * @Body : [UpdateUserDto]
    *
    */
-  @Put('/user/update')
+  @Put('/update')
   @UsePipes(ValidationPipe)
   async setAllUser(@Body() updateUserDto: UpdateUserDto[]): Promise<boolean> {
     return await this.userService.setAllUser(updateUserDto);
@@ -110,7 +108,7 @@ export class UserController {
    * @param id 유저 고유 아이디
    * @url http://localhost:3000/user/user/delete?id=f8fdc484-13ea-4b6f-89c2-053805ee043b
    */
-  @Delete('/user/delete')
+  @Delete('/delete')
   async deleteUser(@Query('id', ParseUUIDPipe) id: string): Promise<boolean> {
     console.log(id);
     return await this.userService.deleteUser(id);
