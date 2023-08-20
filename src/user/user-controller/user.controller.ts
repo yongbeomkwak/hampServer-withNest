@@ -38,7 +38,7 @@ export class UserController {
   /**
    * @author Hamp
    * @description 전체 유저 조회
-   * @url http://localhost:3000/user/user_all
+   * @url http://localhost:3000/user_all
    */
   @Get('/user_all')
   async getUserAll(): Promise<User[]> {
@@ -49,21 +49,33 @@ export class UserController {
    * @author Hamp
    * @description @Query 방식 - 단일 유저 조회
    * @param id 유저 고유 아이디
-   * @url  http://localhost:3000/user/user?id= id값
+   * @url  http://localhost:3000/user?id= id값
    */
-  @Get()
-  async findByUserOne1(@Query('id', ParseUUIDPipe) id: string): Promise<User> {
-    return await this.userService.findByUserOne(id);
-  }
+  // @Get()
+  // async findByUserOne1(@Query('id', ParseUUIDPipe) id: string): Promise<User> {
+  //   return await this.userService.findByUserOne(id);
+  // }
 
   /**
    * @author Hamp
-   * @description @Param 방식 - 단일 유저 조회
-   * @param id 유저 고유 아이디
-   * @url http://localhost:3000/user/user/name값
+   * @description @Param 방식 - 다중
+   * @param name 유저 고유 아이디
+   * @url http://localhost:3000/user/name값
    */
-  @Get('/:name')
-  async findByUserOne2(@Param('name') name: string): Promise<User[]> {
+  // @Get('/:name')
+  // async findByUserOne2(@Param('name') name: string): Promise<User[]> {
+  //   return await this.userService.getUsersByName(name);
+  // }
+
+  /**
+   * @author Hamp
+   * @description @Query 방식 - 다중
+   * @param name 유저 고유 아이디
+   * @url http://localhost:3000/user/name?값
+   */
+
+  @Get()
+  async findByUserOne2(@Query('name') name: string): Promise<User[]> {
     return await this.userService.getUsersByName(name);
   }
 
@@ -106,7 +118,7 @@ export class UserController {
    * @author Hamp
    * @description @Query 방식 - 단일 유저 삭제
    * @param id 유저 고유 아이디
-   * @url http://localhost:3000/user/user/delete?id=f8fdc484-13ea-4b6f-89c2-053805ee043b
+   * @url http://localhost:3000/user/delete?id=f8fdc484-13ea-4b6f-89c2-053805ee043b
    */
   @Delete('/delete')
   async deleteUser(@Query('id', ParseUUIDPipe) id: string): Promise<boolean> {
